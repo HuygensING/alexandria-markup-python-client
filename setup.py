@@ -7,4 +7,5 @@ setup(name='AlexandriaMarkupClient',
       description='Client to interact with alexandria markup server',
       author='HuygensING',
       author_email='alexandria@huygens.knaw.nl',
-      packages=['alexandria-markup.client']
+      packages=['alexandria_markup.client']
+      )
