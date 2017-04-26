@@ -33,7 +33,7 @@ class AlexandriaMarkup:
         url = urljoin(self.server, uri)
         current_content_type = self.session.headers.get('content-type')
         self.session.headers['content-type'] = content_type
-        r = self.session.put(url=url, data=data)
+        r = self.session.put(url=url, data=data.encode('utf-8'))
         self.session.headers['content-type'] = current_content_type
         r.raise_for_status()
         return r
@@ -48,7 +48,7 @@ class AlexandriaMarkup:
         url = urljoin(self.server, uri)
         current_content_type = self.session.headers.get('content-type')
         self.session.headers['content-type'] = content_type
-        r = self.session.post(url=url, data=data)
+        r = self.session.post(url=url, data=data.encode('utf-8'))
         self.session.headers['content-type'] = current_content_type
         r.raise_for_status()
         return r
