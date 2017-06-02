@@ -1,9 +1,10 @@
-import time
 from http import HTTPStatus
 
 import alexandria_markup.client.util as util
 from alexandria_markup.client.alexandria_endpoint import AlexandriaEndpoint
 from alexandria_markup.client.rest_requester import RestRequester
+
+UTF8TEXT = 'text/plain;encoding=utf8'
 
 
 class DocumentsEndpoint(AlexandriaEndpoint):
@@ -12,16 +13,34 @@ class DocumentsEndpoint(AlexandriaEndpoint):
     def __init__(self, alexandria):
         super().__init__(alexandria)
 
-    def add(self, lmnl):
+    def add_from_lmnl(self, lmnl):
         def adder():
-            return self.alexandria.post_data(self.endpoint, lmnl, 'text/plain;encoding=utf8')
+            uri = util.endpoint_uri(self.endpoint, 'lmnl')
+            return self.alexandria.post_data(uri, lmnl, UTF8TEXT)
 
         add_result = RestRequester(adder).on_status(HTTPStatus.CREATED, util.location_as_uuid).invoke()
         return add_result
 
-    def set(self, uuid, lmnl):
+    def add_from_texmecs(self, texmecs):
         def adder():
-            return self.alexandria.put_data(util.endpoint_uri(self.endpoint, uuid), lmnl, 'text/plain;encoding=utf8')
+            uri = util.endpoint_uri(self.endpoint, 'texmecs')
+            return self.alexandria.post_data(uri, texmecs, UTF8TEXT)
+
+        add_result = RestRequester(adder).on_status(HTTPStatus.CREATED, util.location_as_uuid).invoke()
+        return add_result
+
+    def set_from_lmnl(self, uuid, lmnl):
+        def adder():
+            uri = util.endpoint_uri(self.endpoint, uuid, 'lmnl')
+            return self.alexandria.put_data(uri, lmnl, UTF8TEXT)
+
+        add_result = RestRequester(adder).on_status(HTTPStatus.CREATED, util.response_as_is).invoke()
+        return add_result
+
+    def set_from_texmecs(self, uuid, texmecs):
+        def adder():
+            uri = util.endpoint_uri(self.endpoint, uuid, 'texmecs')
+            return self.alexandria.put_data(uri, texmecs, UTF8TEXT)
 
         add_result = RestRequester(adder).on_status(HTTPStatus.CREATED, util.response_as_is).invoke()
         return add_result
