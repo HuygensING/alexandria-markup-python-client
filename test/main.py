@@ -18,7 +18,7 @@ def main(argv):
     documents = alexandria.documents
 
     lmnl_in = '[text}[p=p-1}This is a simple paragraph.{p=p-1]{text]'
-    doc_id = documents.add(lmnl_in).uuid
+    doc_id = documents.add_from_lmnl(lmnl_in).uuid
 
     lmnl_out = documents.lmnl(doc_id)
     print("LMNL out:", lmnl_out)
@@ -41,7 +41,7 @@ def main(argv):
     print("text/markup matrix LaTeX:", latex4)
 
     lmnl_in2 = '[lmnl}text{lmnl]'
-    documents.set(doc_id, lmnl_in2)
+    documents.set_from_lmnl(doc_id, lmnl_in2)
 
     lmnl_out2 = documents.lmnl(doc_id)
     assert lmnl_out2 == lmnl_in2
