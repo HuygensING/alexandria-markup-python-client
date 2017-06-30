@@ -1,5 +1,6 @@
 import argparse
 import sys
+import json
 
 from alexandria_markup.client.alexandria_markup import AlexandriaMarkup
 
@@ -39,6 +40,11 @@ def main(argv):
     latex4 = documents.matrix_latex(doc_id)
     assert latex4 is not None
     print("text/markup matrix LaTeX:", latex4)
+
+    result = documents.query(doc_id, "select text from markup where name='text'")
+    assert result is not None
+    print("result (object):",result);
+    print("result (values):",result["values"]);
 
     lmnl_in2 = '[lmnl}text{lmnl]'
     documents.set_from_lmnl(doc_id, lmnl_in2)
