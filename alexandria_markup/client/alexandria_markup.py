@@ -21,6 +21,9 @@ class AlexandriaMarkup:
         url = urljoin(self.server, uri)
         r = self.session.get(url=url)
         r.raise_for_status()
+        print("reponse.encoding=", r.encoding)
+        print("reponse.headers=", r.headers)
+        print("reponse.content=", r.content)
         return r
 
     def put(self, uri, data):
@@ -49,6 +52,8 @@ class AlexandriaMarkup:
         current_content_type = self.session.headers.get('content-type')
         self.session.headers['content-type'] = content_type
         r = self.session.post(url=url, data=data.encode('utf-8'))
+        print("reponse.encoding=", r.encoding)
+        print("reponse.headers=", r.headers)
         self.session.headers['content-type'] = current_content_type
         r.raise_for_status()
         return r

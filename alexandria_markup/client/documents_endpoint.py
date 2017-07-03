@@ -81,5 +81,6 @@ class DocumentsEndpoint(AlexandriaEndpoint):
             return self.alexandria.post_data(util.endpoint_uri(self.endpoint, uuid, 'query'), tagql)
 
         json_result = RestRequester(poster).on_status(HTTPStatus.OK, util.response_as_is).invoke().response.text
+        print("json_result=",json_result)
         result = json.loads(json_result)
         return result
