@@ -21,15 +21,14 @@ class AlexandriaMarkup:
         url = urljoin(self.server, uri)
         r = self.session.get(url=url)
         r.raise_for_status()
-        print("reponse.encoding=", r.encoding)
-        print("reponse.headers=", r.headers)
-        print("reponse.content=", r.content)
+        r.encoding='utf-8'
         return r
 
     def put(self, uri, data):
         url = urljoin(self.server, uri)
         r = self.session.put(url=url, json=data)
         r.raise_for_status()
+        r.encoding='utf-8'
         return r
 
     def put_data(self, uri, data, content_type='text/plain'):
@@ -39,12 +38,14 @@ class AlexandriaMarkup:
         r = self.session.put(url=url, data=data.encode('utf-8'))
         self.session.headers['content-type'] = current_content_type
         r.raise_for_status()
+        r.encoding='utf-8'
         return r
 
     def post(self, uri, json):
         url = urljoin(self.server, uri)
         r = self.session.post(url=url, json=json)
         r.raise_for_status()
+        r.encoding='utf-8'
         return r
 
     def post_data(self, uri, data, content_type='text/plain'):
@@ -52,13 +53,13 @@ class AlexandriaMarkup:
         current_content_type = self.session.headers.get('content-type')
         self.session.headers['content-type'] = content_type
         r = self.session.post(url=url, data=data.encode('utf-8'))
-        print("reponse.encoding=", r.encoding)
-        print("reponse.headers=", r.headers)
         self.session.headers['content-type'] = current_content_type
         r.raise_for_status()
+        r.encoding='utf-8'
         return r
 
     def delete(self, uri):
         r = self.session.delete(url=urljoin(self.server, uri))
         r.raise_for_status()
+        r.encoding='utf-8'
         return r

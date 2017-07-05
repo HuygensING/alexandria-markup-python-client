@@ -1,12 +1,10 @@
 from http import HTTPStatus
-import json
 
 import alexandria_markup.client.util as util
 from alexandria_markup.client.alexandria_endpoint import AlexandriaEndpoint
 from alexandria_markup.client.rest_requester import RestRequester
 
-UTF8TEXT = 'text/plain;encoding=utf8'
-
+UTF8TEXT = 'text/plain; encoding=UTF-8'
 
 class DocumentsEndpoint(AlexandriaEndpoint):
     endpoint = 'documents'
@@ -80,7 +78,4 @@ class DocumentsEndpoint(AlexandriaEndpoint):
         def poster():
             return self.alexandria.post_data(util.endpoint_uri(self.endpoint, uuid, 'query'), tagql)
 
-        json_result = RestRequester(poster).on_status(HTTPStatus.OK, util.response_as_is).invoke().response.text
-        print("json_result=",json_result)
-        result = json.loads(json_result)
-        return result
+        return RestRequester(poster).on_status(HTTPStatus.OK, util.response_as_is).invoke().response.json()
