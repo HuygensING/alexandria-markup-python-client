@@ -22,6 +22,7 @@ from alexandria_markup.client.rest_requester import RestRequester
 
 UTF8TEXT = 'text/plain; encoding=UTF-8'
 
+
 class DocumentsEndpoint(AlexandriaEndpoint):
     endpoint = 'documents'
 

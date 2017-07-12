@@ -16,16 +16,18 @@
 
 import argparse
 import sys
-import json
 
 from alexandria_markup.client.alexandria_markup import AlexandriaMarkup
+
 
 def print_divider():
     print("\n--------------------------------------------------------------------------------\n")
 
-def log(label,obj):
+
+def log(label, obj):
     print_divider()
-    print("== ",label,": ==\n",obj)
+    print("== ", label, ": ==\n", obj)
+
 
 def main(argv):
     parser = argparse.ArgumentParser()
@@ -66,7 +68,7 @@ def main(argv):
     result = documents.query(doc_id, "select text from markup where name='text'")
     assert result is not None
     # print("result (object):",result);
-    log("result (values)",result["values"]);
+    log("result (values)", result["values"])
 
     lmnl_in2 = '[lmnl}text{lmnl]'
     documents.set_from_lmnl(doc_id, lmnl_in2)
@@ -74,6 +76,7 @@ def main(argv):
     lmnl_out2 = documents.lmnl(doc_id)
     assert lmnl_out2 == lmnl_in2
     log("LMNL (2)", lmnl_out2)
+
 
 if __name__ == "__main__":
     main(sys.argv[1:])

@@ -14,6 +14,7 @@
    limitations under the License.
 """
 
+
 class RestResult:
     def __init__(self, uuid=None, json=None, failed=False, response=None):
         self.uuid = uuid
